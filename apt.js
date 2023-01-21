@@ -12,6 +12,7 @@
  
 let gLastSelectedApt = "";
 let gItems = "";
+let done = false;
 
 class Item {
     constructor() {
@@ -116,10 +117,13 @@ function observeItems() {
 }
 
 const disconnect = VM.observe(document.body, () => {
-    observeItems();
-    observeMainTitle();
-    disconnect();
+    if (!done) {
+        observeItems();
+        observeMainTitle();
+        done = true;
+    }
   });
   
 // You can also disconnect the observer explicitly when it's not used any more
+//disconnect();
 
