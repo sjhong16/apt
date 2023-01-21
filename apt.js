@@ -43,7 +43,23 @@ function observeMainTitle() {
         prev.remove();
     }
 
-    $node.prepend('<h1>Profile</h1>');
+    let summary = '<table id="#plugin_summary">';
+    items.forEach(item => {
+        summary += `<tr>`
+        summary += `<td>${item.date}</td>`
+        summary += `<td>${item.type}</td>`
+        summary += `<td>${item.price}</td>`
+        summary += `<td>${item.monthly}</td>`
+        summary += `<td>${item.doing}</td>`
+        summary += `<td>${item.floor}</td>`
+        summary += `<td>${item.direction}</td>`
+        summary += `<td>${item.desc}</td>`
+        summary += `<td>${item.realEstate}</td>`
+        summary += `</tr>`
+    })
+
+    summary += '</table>';
+    $node.prepend(summary);
 
     // https://new.land.naver.com/complexes/9679?ms=37.5431126,126.9613267,17&a=APT:ABYG:JGC&e=RETAIL
 
@@ -119,8 +135,10 @@ function observeItems() {
 const disconnect = VM.observe(document.body, () => {
     if (count < 10) {
         observeItems();
-        observeMainTitle();
-        count++;
+        if (items.length > 0) {
+            observeMainTitle();
+            count++;
+        }
     }
   });
   
