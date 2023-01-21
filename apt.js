@@ -11,8 +11,8 @@
 // ==/UserScript==
  
 var gLastSelectedApt = "";
- 
-const disconnect = VM.observe(document.body, () => {
+
+function observeMainTitle() {
     // Find the target node
     let node = document.querySelector('#complexTitle');
     if (!node) {
@@ -24,6 +24,22 @@ const disconnect = VM.observe(document.body, () => {
         gLastSelectedApt = node.innerText;
         console.error(gLastSelectedApt);
     }
+}
+
+// 각각의 매물을 감시한다.
+function observeItems() {
+    let item = document.querySelector('.item_list .item');
+    if (!item) {
+        return;
+    }
+
+    let title = item.querySelector('.item_title .text');
+    console.error(title.innerText);
+}
+
+const disconnect = VM.observe(document.body, () => {
+    observeItems();
+    observeMainTitle();
   });
   
 // You can also disconnect the observer explicitly when it's not used any more
