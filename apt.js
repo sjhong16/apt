@@ -42,6 +42,7 @@ function observeMainTitle() {
         prev.remove();
     }
 
+    /*
     let table = document.createElement("table");
     table.setAttribute("id", "#plugin_summary");
 
@@ -50,11 +51,11 @@ function observeMainTitle() {
 
         let td1 = document.createElement("td");
         td1.innerText = item.type;
-        tr.appendChild(td1);
+        //tr.appendChild(td1);
 
-        table.appendChild(tr);
+        //table.appendChild(tr);
     });
-    node.appendChild(table);
+    //node.appendChild(table);
     //$('<span>test</span>').appendTo(node); 
 
 
