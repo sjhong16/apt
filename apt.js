@@ -118,7 +118,8 @@ function observeItems() {
 const disconnect = VM.observe(document.body, () => {
     observeItems();
     observeMainTitle();
+    disconnect();
   });
   
 // You can also disconnect the observer explicitly when it's not used any more
-disconnect();
+
