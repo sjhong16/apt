@@ -37,46 +37,6 @@ function observeMainTitle() {
             items.clear();
         }
     }
-
-    // Find the target node
-    const $node = $('.list_complex_info .complex_price_wrap');
-    if (!$node) {
-        return;
-    }
-
-    let prev = $node.find("#plugin_summary");
-    if (prev) {
-        prev.remove();
-    }
-
-    let summary = '<table id="#plugin_summary" border="1">';
-    summary += '<tr>'
-            + '<td>날자</td>'
-            + '<td>타입</td>'
-            + '<td>가격</td>'
-            + '<td>월세</td>'
-            + '<td>동</td>'
-            + '<td>층</td>'
-            + '<td>방향</td>'
-            + '<td>설명</td>'
-            + '<td>부동산</td>'
-            + '</tr>';
-    items.values().forEach(item => {
-        summary += `<tr>`
-        summary += `<td>${item.date}</td>`
-        summary += `<td>${item.type}</td>`
-        summary += `<td>${item.price}</td>`
-        summary += `<td>${item.monthly}</td>`
-        summary += `<td>${item.dong}</td>`
-        summary += `<td>${item.floor}</td>`
-        summary += `<td>${item.direction}</td>`
-        summary += `<td>${item.desc}</td>`
-        summary += `<td>${item.realEstate}</td>`
-        summary += `</tr>`
-    })
-
-    summary += '</table>';
-    $node.prepend(summary);
 }
 
 // 각각의 매물을 감시한다.
@@ -118,11 +78,54 @@ function observeItems() {
     console.error(JSON.stringify(items.length));
 }
 
+function printSummary() {
+    const $node = $('.list_complex_info .complex_price_wrap');
+    if (!$node) {
+        return;
+    }
+
+    let prev = $node.find("#plugin_summary");
+    if (prev) {
+        prev.remove();
+    }
+
+    let summary = '<table id="#plugin_summary" border="1">';
+    summary += '<tr>'
+            + '<td>날자</td>'
+            + '<td>타입</td>'
+            + '<td>가격</td>'
+            + '<td>월세</td>'
+            + '<td>동</td>'
+            + '<td>층</td>'
+            + '<td>방향</td>'
+            + '<td>설명</td>'
+            + '<td>부동산</td>'
+            + '</tr>';
+    items.forEach(kv => {
+        var item = kv.value;
+        summary += `<tr>`
+                 + `<td>${item.date}</td>`
+                 + `<td>${item.type}</td>`
+                 + `<td>${item.price}</td>`
+                 + `<td>${item.monthly}</td>`
+                 + `<td>${item.dong}</td>`
+                 + `<td>${item.floor}</td>`
+                 + `<td>${item.direction}</td>`
+                 + `<td>${item.desc}</td>`
+                 + `<td>${item.realEstate}</td>`
+                 + `</tr>`;
+    })
+
+    summary += '</table>';
+    $node.prepend(summary);    
+    dirty = false;
+}
+
 const disconnect = VM.observe(document.body, () => {
+    observeMainTitle();
     observeItems();
     if (dirty) {
-        observeMainTitle();
-        dirty = false;
+        printSummary();
     }
   });
   
