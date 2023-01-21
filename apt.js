@@ -42,9 +42,11 @@ function observeMainTitle() {
         prev.remove();
     }
 
-    /*
     let table = document.createElement("table");
     table.setAttribute("id", "#plugin_summary");
+    node.appendChild(table);
+
+    /*
 
     items.forEach(item => {
         let tr = document.createElement("tr");
