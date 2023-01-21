@@ -42,6 +42,7 @@ function observeMainTitle() {
         prev.remove();
     }
 
+    /*
     let table = document.createElement("table");
     table.setAttribute("id", "#plugin_summary");
     
