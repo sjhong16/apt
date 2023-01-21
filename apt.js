@@ -16,7 +16,6 @@ let gItems = "";
 class Item {
     constructor() {
         this.key = 0;
-        this.name = "";
         this.type = "";
         this.price = "";
         this.monthly = "";
@@ -46,31 +45,31 @@ function observeMainTitle() {
 
 // 각각의 매물을 감시한다.
 function observeItems() {
-    let itemNode = document.querySelector('.item_list .item');
-    if (!itemNode) {
+    let itemNodes = document.querySelectorAll('.item_list .item');
+    if (!itemNodes) {
         return;
     }
 
-    let item = new Item();
-    let titleNode = itemNode.querySelector('.item_title .text');
-    item.title = titleNode.innerText;
-    item.type = itemNode.querySelector('.price_line .type').innerText;
-    item.dong = titleNode.innerHTML;
-
-    let price = itemNode.querySelector('.price_line .price').innerText;
-    let prices = price.split('/');
-    item.price = price[0];
-    if (prices.length > 1) {
-        item.monthly = price[1];
-    }
-
-    let specNode = itemNode.querySelector('.info_area .line:nth-child(1) .spec');
-    item.floor = specNode.innerHTML;
-
-    item.desc = itemNode.querySelector('.info_area .line:nth-child(2) .spec').innerText;
-    item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
-
-    console.error(JSON.stringify(item));
+    itemNodes.forEach(itemNode => {
+        let item = new Item();
+        item.type = itemNode.querySelector('.price_line .type').innerText;
+        item.dong = itemNode.querySelector('.item_title .text').innerText.split(' ')[1];
+    
+        let price = itemNode.querySelector('.price_line .price').innerText;
+        let prices = price.split('/');
+        item.price = price[0];
+        if (prices.length > 1) {
+            item.monthly = price[1];
+        }
+    
+        let specNode = itemNode.querySelector('.info_area .line:nth-child(1) .spec');
+        item.floor = specNode.innerHTML;
+    
+        item.desc = itemNode.querySelector('.info_area .line:nth-child(2) .spec').innerText;
+        item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
+    
+        console.error(JSON.stringify(item));
+    });
 }
 
 const disconnect = VM.observe(document.body, () => {
