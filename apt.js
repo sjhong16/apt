@@ -57,7 +57,7 @@ function observeItems() {
         item.dong = itemNode.querySelector('.item_title .text').innerText.split(' ')[1];
     
         let price = itemNode.querySelector('.price_line .price').innerText;
-        let prices = price.split('\/');
+        let prices = price.split("/");
         item.price = price[0];
         if (prices.length > 1) {
             item.monthly = price[1];
