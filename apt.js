@@ -44,6 +44,13 @@ function observeMainTitle() {
 
     let table = document.createElement("table");
     table.setAttribute("id", "#plugin_summary");
+    
+    let tr = document.createElement("tr");
+    let td1 = document.createElement("td");
+    td1.innerText = "hello";
+    tr.appendChild(td1);
+
+    table.appendChild(tr);
     node.appendChild(table);
 
     /*
