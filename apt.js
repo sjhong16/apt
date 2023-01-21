@@ -75,7 +75,7 @@ function observeItems() {
         }
     });
     
-    console.error(JSON.stringify(items.length));
+    console.error(JSON.stringify(items.size));
 }
 
 function printSummary() {
@@ -101,8 +101,7 @@ function printSummary() {
             + '<td>설명</td>'
             + '<td>부동산</td>'
             + '</tr>';
-    items.forEach(kv => {
-        var item = kv.value;
+    items.forEach((item) => {
         summary += `<tr>`
                  + `<td>${item.date}</td>`
                  + `<td>${item.type}</td>`
