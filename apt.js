@@ -5,7 +5,7 @@
 // @version     0.1
 // @author      Maru
 // @description Please use with violentmonkey
-// @require     https://code.jquery.com/jquery-1.12.4.min.js
+// @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js
 // @require     https://cdn.jsdelivr.net/npm/@violentmonkey/dom@2
 // ==/UserScript==
@@ -32,15 +32,20 @@ let items = [];
 
 function observeMainTitle() {
     // Find the target node
-    let node = document.querySelector('.list_complex_info .complex_price_wrap');
+    const $node = $('.list_complex_info .complex_price_wrap');
     if (!node) {
         return;
     }
 
-    let prev = node.querySelector("#plugin_summary");
+    
+
+    let prev = $node.find("#plugin_summary");
     if (prev) {
         prev.remove();
     }
+
+    $node.prepend('<h1>Profile</h1>');
+
 
     /*
     let table = document.createElement("table");
