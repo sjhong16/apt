@@ -12,7 +12,7 @@
  
 let gLastSelectedApt = "";
 let gItems = "";
-let done = false;
+let count = 0;
 
 class Item {
     constructor() {
@@ -117,10 +117,10 @@ function observeItems() {
 }
 
 const disconnect = VM.observe(document.body, () => {
-    if (!done) {
+    if (count < 10) {
         observeItems();
         observeMainTitle();
-        done = true;
+        count++;
     }
   });
   
