@@ -42,7 +42,7 @@ function observeMainTitle() {
         prev.remove();
     }
 
-    $('<span>test</span>').appendTo(node); 
+    //$('<span>test</span>').appendTo(node); 
 
 
     /*
