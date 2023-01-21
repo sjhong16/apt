@@ -26,5 +26,5 @@ const disconnect = VM.observe(document.body, () => {
     }
   });
   
-  // You can also disconnect the observer explicitly when it's not used any more
-  //disconnect();
+// You can also disconnect the observer explicitly when it's not used any more
+//disconnect();
