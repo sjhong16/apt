@@ -44,6 +44,7 @@ function observeMainTitle() {
 
     $node.prepend('<h1>Profile</h1>');
 
+    // https://new.land.naver.com/complexes/9679?ms=37.5431126,126.9613267,17&a=APT:ABYG:JGC&e=RETAIL
 
     /*
     let table = document.createElement("table");
@@ -120,4 +121,4 @@ const disconnect = VM.observe(document.body, () => {
   });
   
 // You can also disconnect the observer explicitly when it's not used any more
-//disconnect();
+disconnect();
