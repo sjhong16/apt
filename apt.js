@@ -46,22 +46,29 @@ function observeMainTitle() {
 
 // 각각의 매물을 감시한다.
 function observeItems() {
-    let item = document.querySelector('.item_list .item');
-    if (!item) {
+    let itemNode = document.querySelector('.item_list .item');
+    if (!itemNode) {
         return;
     }
 
     let item = new Item();
-    item.title = item.querySelector('.item_title .text').innerText;
-    item.type = item.querySelector('.price_line .type').innerText;
+    let titleNode = itemNode.querySelector('.item_title .text');
+    item.title = titleNode.innerText;
+    item.type = itemNode.querySelector('.price_line .type').innerText;
+    item.dong = titleNode.innerHTML;
 
-    let priceNode = item.querySelector('.price_line .price');
-    item.price = priceNode.innerText;
+    let price = itemNode.querySelector('.price_line .price').innerText;
+    let prices = price.split('/');
+    item.price = price[0];
+    if (prices.length > 1) {
+        item.monthly = price[1];
+    }
 
-    let specNode = item.querySelector('.info_area .line:nth-child(1) .spec');
+    let specNode = itemNode.querySelector('.info_area .line:nth-child(1) .spec');
+    item.floor = specNode.innerHTML;
 
-    item.desc = priceNode.item.querySelector('.info_area .line:nth-child(2) .spec').innerText;
-    item.realEstate = priceNode.item.querySelector('.agent_info .agent_name').innerText;
+    item.desc = itemNode.querySelector('.info_area .line:nth-child(2) .spec').innerText;
+    item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
 
     console.error(JSON.stringify(item));
 }
