@@ -25,10 +25,19 @@ class Item {
     }    
 }
 
+let curentApt = "";
 let items = new Map();
 let dirty = false;
 
 function observeMainTitle() {
+    const $title = $('#complexTitle').innerText;
+    if ($title) {
+        if (curentApt !== $title) {
+            curentApt = $title;
+            items.clear();
+        }
+    }
+
     // Find the target node
     const $node = $('.list_complex_info .complex_price_wrap');
     if (!$node) {
@@ -52,7 +61,7 @@ function observeMainTitle() {
             + '<td>설명</td>'
             + '<td>부동산</td>'
             + '</tr>';
-    items.forEach(item => {
+    items.values().forEach(item => {
         summary += `<tr>`
         summary += `<td>${item.date}</td>`
         summary += `<td>${item.type}</td>`
@@ -77,7 +86,6 @@ function observeItems() {
         return;
     }
 
-    items.clear();
     itemNodes.forEach(itemNode => {
         let item = new Item();
         item.type = itemNode.querySelector('.price_line .type').innerText;
@@ -105,9 +113,9 @@ function observeItems() {
             items.set(key, item);
             dirty = true;
         }
-
-        console.error(JSON.stringify(item));
     });
+    
+    console.error(JSON.stringify(items.length));
 }
 
 const disconnect = VM.observe(document.body, () => {
