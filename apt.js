@@ -10,10 +10,6 @@
 // @require     https://cdn.jsdelivr.net/npm/@violentmonkey/dom@2
 // ==/UserScript==
  
-let gLastSelectedApt = "";
-let gItems = "";
-let count = 0;
-
 class Item {
     constructor() {
         this.key = 0;
@@ -29,7 +25,8 @@ class Item {
     }    
 }
 
-let items = [];
+let items = new Map();
+let dirty = false;
 
 function observeMainTitle() {
     // Find the target node
@@ -43,14 +40,25 @@ function observeMainTitle() {
         prev.remove();
     }
 
-    let summary = '<table id="#plugin_summary">';
+    let summary = '<table id="#plugin_summary" border="1">';
+    summary += '<tr>'
+            + '<td>날자</td>'
+            + '<td>타입</td>'
+            + '<td>가격</td>'
+            + '<td>월세</td>'
+            + '<td>동</td>'
+            + '<td>층</td>'
+            + '<td>방향</td>'
+            + '<td>설명</td>'
+            + '<td>부동산</td>'
+            + '</tr>';
     items.forEach(item => {
         summary += `<tr>`
         summary += `<td>${item.date}</td>`
         summary += `<td>${item.type}</td>`
         summary += `<td>${item.price}</td>`
         summary += `<td>${item.monthly}</td>`
-        summary += `<td>${item.doing}</td>`
+        summary += `<td>${item.dong}</td>`
         summary += `<td>${item.floor}</td>`
         summary += `<td>${item.direction}</td>`
         summary += `<td>${item.desc}</td>`
@@ -60,43 +68,6 @@ function observeMainTitle() {
 
     summary += '</table>';
     $node.prepend(summary);
-
-    // https://new.land.naver.com/complexes/9679?ms=37.5431126,126.9613267,17&a=APT:ABYG:JGC&e=RETAIL
-
-    /*
-    let table = document.createElement("table");
-    table.setAttribute("id", "#plugin_summary");
-    
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    td1.innerText = "hello";
-    tr.appendChild(td1);
-
-    table.appendChild(tr);
-    node.appendChild(table);
-
-    /*
-
-    items.forEach(item => {
-        let tr = document.createElement("tr");
-
-        let td1 = document.createElement("td");
-        td1.innerText = item.type;
-        //tr.appendChild(td1);
-
-        //table.appendChild(tr);
-    });
-    //node.appendChild(table);
-    //$('<span>test</span>').appendTo(node); 
-
-
-    /*
-    if (node.innerText != gLastSelectedApt) {
-        node.innerText += "(Hello)";
-        gLastSelectedApt = node.innerText;
-        console.error(gLastSelectedApt);
-    }
-    */
 }
 
 // 각각의 매물을 감시한다.
@@ -106,7 +77,7 @@ function observeItems() {
         return;
     }
 
-    items = [];
+    items.clear();
     itemNodes.forEach(itemNode => {
         let item = new Item();
         item.type = itemNode.querySelector('.price_line .type').innerText;
@@ -117,6 +88,8 @@ function observeItems() {
         item.price = prices[0];
         if (prices.length > 1) {
             item.monthly = prices[1];
+        } else {
+            item.monthly = "";
         }
     
         let specs = itemNode.querySelector('.info_area .line:nth-child(1) .spec').innerText.split(', ');
@@ -127,18 +100,21 @@ function observeItems() {
         item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
         item.date = itemNode.querySelector('.label_area .label .data').innerText;
     
-        items.push(item);
+        let key = item.desc;
+        if (!items.has(key)) {
+            items.set(key, item);
+            dirty = true;
+        }
+
         console.error(JSON.stringify(item));
     });
 }
 
 const disconnect = VM.observe(document.body, () => {
-    if (count < 10) {
-        observeItems();
-        if (items.length > 0) {
-            observeMainTitle();
-            count++;
-        }
+    observeItems();
+    if (dirty) {
+        observeMainTitle();
+        dirty = false;
     }
   });
   
