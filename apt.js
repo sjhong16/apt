@@ -32,16 +32,26 @@ let items = [];
 
 function observeMainTitle() {
     // Find the target node
-    let node = document.querySelector('#complexTitle');
+    let node = document.querySelector('.list_complex_info .complex_price_wrap');
     if (!node) {
         return;
     }
-  
+
+    let prev = node.querySelector("#plugin_summary");
+    if (prev) {
+        prev.remove();
+    }
+
+    $('<span>test</span>').appendTo(node); 
+
+
+    /*
     if (node.innerText != gLastSelectedApt) {
         node.innerText += "(Hello)";
         gLastSelectedApt = node.innerText;
         console.error(gLastSelectedApt);
     }
+    */
 }
 
 // 각각의 매물을 감시한다.
@@ -51,6 +61,7 @@ function observeItems() {
         return;
     }
 
+    items = [];
     itemNodes.forEach(itemNode => {
         let item = new Item();
         item.type = itemNode.querySelector('.price_line .type').innerText;
@@ -58,9 +69,9 @@ function observeItems() {
     
         let price = itemNode.querySelector('.price_line .price').innerText;
         let prices = price.split("/");
-        item.price = price[0];
+        item.price = prices[0];
         if (prices.length > 1) {
-            item.monthly = price[1];
+            item.monthly = prices[1];
         }
     
         let specs = itemNode.querySelector('.info_area .line:nth-child(1) .spec').innerText.split(', ');
@@ -71,6 +82,7 @@ function observeItems() {
         item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
         item.date = itemNode.querySelector('.label_area .label .data').innerText;
     
+        items.push(item);
         console.error(JSON.stringify(item));
     });
 }
