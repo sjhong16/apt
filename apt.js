@@ -33,11 +33,9 @@ let items = [];
 function observeMainTitle() {
     // Find the target node
     const $node = $('.list_complex_info .complex_price_wrap');
-    if (!node) {
+    if (!$node) {
         return;
     }
-
-    
 
     let prev = $node.find("#plugin_summary");
     if (prev) {
