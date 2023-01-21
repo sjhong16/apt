@@ -10,7 +10,25 @@
 // @require     https://cdn.jsdelivr.net/npm/@violentmonkey/dom@2
 // ==/UserScript==
  
-var gLastSelectedApt = "";
+let gLastSelectedApt = "";
+let gItems = "";
+
+class Item {
+    constructor() {
+        this.key = 0;
+        this.name = "";
+        this.type = "";
+        this.price = "";
+        this.monthly = "";
+        this.dong = "";
+        this.floor = "";
+        this.direction = "";
+        this.desc = "";
+        this.realEstate = "";
+    }    
+}
+
+let items = [];
 
 function observeMainTitle() {
     // Find the target node
@@ -33,8 +51,19 @@ function observeItems() {
         return;
     }
 
-    let title = item.querySelector('.item_title .text');
-    console.error(title.innerText);
+    let item = new Item();
+    item.title = item.querySelector('.item_title .text').innerText;
+    item.type = item.querySelector('.price_line .type').innerText;
+
+    let priceNode = item.querySelector('.price_line .price');
+    item.price = priceNode.innerText;
+
+    let specNode = item.querySelector('.info_area .line:nth-child(1) .spec');
+
+    item.desc = priceNode.item.querySelector('.info_area .line:nth-child(2) .spec').innerText;
+    item.realEstate = priceNode.item.querySelector('.agent_info .agent_name').innerText;
+
+    console.error(JSON.stringify(item));
 }
 
 const disconnect = VM.observe(document.body, () => {
