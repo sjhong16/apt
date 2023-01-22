@@ -34,12 +34,12 @@ let items = new Map();
 let dirty = false;
 
 function observeMainTitle() {
-    const $title = $('#complexTitle').innerText;
-    console.error("title:" + $title);
+    const title = $('#complexTitle').innerText;
+    console.error("title:" + title);
     
-    if ($title) {
-        if (curentApt !== $title) {
-            curentApt = $title;
+    if (title) {
+        if (curentApt !== title) {
+            curentApt = title;
             console.error("curentApt:" + curentApt);
             items.clear();
         }
