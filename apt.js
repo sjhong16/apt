@@ -34,7 +34,7 @@ let items = new Map();
 let dirty = false;
 
 function observeMainTitle() {
-    const title = $('#complexTitle').innerText;
+    let title = document.querySelectorAll('#complexTitle').innerText;
     console.error("title:" + title);
     
     if (title) {
