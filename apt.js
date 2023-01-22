@@ -34,7 +34,7 @@ let items = new Map();
 let dirty = false;
 
 function observeMainTitle() {
-    let titleNode = $('#complexTitle');
+    let titleNode = $('.list_complex_info .complex_title .title');
     if (!titleNode) {
         return;
     }
