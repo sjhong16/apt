@@ -34,18 +34,12 @@ let items = new Map();
 let dirty = false;
 
 function observeMainTitle() {
-    let titleNode = $('.list_complex_info .complex_title .title');
-    if (!titleNode) {
-        return;
-    }
-
-    let title = titleNode.innerText;
+    let title = $('#complexTitle')[0].innerText;
     console.error("title:" + title);
     
     if (title) {
         if (curentApt !== title) {
             curentApt = title;
-            console.error("curentApt2:" + curentApt);
             items.clear();
         }
     }
@@ -147,11 +141,7 @@ function printSummary() {
     summary += '</table>';
     //$node.prepend(summary);    
 
-    console.error(`curentApt??:${curentApt}`);
-    let node = $('#complexTitle');
-    console.error("node.innerText:" + node.innerText);
-
-    node.click(function () {
+    $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
     });
