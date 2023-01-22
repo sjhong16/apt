@@ -34,13 +34,18 @@ let items = new Map();
 let dirty = false;
 
 function observeMainTitle() {
-    let title = document.querySelectorAll('#complexTitle').innerText;
+    let titleNode = $('#complexTitle');
+    if (!titleNode) {
+        return;
+    }
+
+    let title = titleNode.innerText;
     console.error("title:" + title);
     
     if (title) {
         if (curentApt !== title) {
             curentApt = title;
-            console.error("curentApt:" + curentApt);
+            console.error("curentApt2:" + curentApt);
             items.clear();
         }
     }
@@ -83,7 +88,7 @@ function observeItems() {
         }
     });
     
-    console.error(JSON.stringify(items.size));
+    //console.error(JSON.stringify(items.size));
 }
 
 function printSummary() {
@@ -142,7 +147,7 @@ function printSummary() {
     summary += '</table>';
     //$node.prepend(summary);    
 
-    console.error(`curentApt:${curentApt}`);
+    console.error(`curentApt??:${curentApt}`);
 
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
