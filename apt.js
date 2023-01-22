@@ -12,7 +12,6 @@
  
 class Item {
     constructor() {
-        this.key = 0;
         this.type = "";
         this.price = "";
         this.monthly = "";
@@ -23,7 +22,11 @@ class Item {
         this.desc = "";
         this.realEstate = "";
         this.date = "";
-    }    
+    }
+
+    key() {
+        return desc + floor + realEstate + price;
+    }
 }
 
 let curentApt = "";
@@ -70,7 +73,7 @@ function observeItems() {
         item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
         item.date = itemNode.querySelector('.label_area .label .data').innerText;
     
-        let key = item.desc;
+        let key = item.key();
         if (!items.has(key)) {
             items.set(key, item);
             dirty = true;
@@ -136,6 +139,7 @@ function printSummary() {
     summary += '</table>';
     //$node.prepend(summary);    
 
+    log.error(`${curentApt}`);
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
