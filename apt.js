@@ -148,6 +148,8 @@ function printSummary() {
     //$node.prepend(summary);    
 
     console.error(`curentApt??:${curentApt}`);
+    let node = $('#complexTitle');
+    console.error(node.innerText);
 
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
