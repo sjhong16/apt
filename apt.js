@@ -25,7 +25,7 @@ class Item {
     }
 
     key() {
-        return desc + floor + realEstate + price;
+        return this.desc + this.floor + this.realEstate + this.price;
     }
 }
 
