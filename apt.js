@@ -129,7 +129,7 @@ const disconnect = VM.observe(document.body, () => {
     observeMainTitle();
     observeItems();
     if (dirty) {
-        printSummary();
+        tsvDownload();
     }
   });
   
