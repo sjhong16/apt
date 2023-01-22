@@ -149,9 +149,9 @@ function printSummary() {
 
     console.error(`curentApt??:${curentApt}`);
     let node = $('#complexTitle');
-    console.error(node.innerText);
+    console.error("node.innerText:" + node.innerText);
 
-    $('#complexTitle').click(function () {
+    node.click(function () {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
     });
