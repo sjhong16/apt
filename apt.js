@@ -104,7 +104,8 @@ function tsvDownload() {
             + `\n`;
     })
 
-    $('#complexTitle').click(function () {
+    $('#complexTitle').off("click");
+    $('#complexTitle').on("click", function() {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
     });
