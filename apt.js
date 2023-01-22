@@ -19,6 +19,7 @@ class Item {
         this.dong = "";
         this.floor = "";
         this.direction = "";
+        this.area = "";
         this.desc = "";
         this.realEstate = "";
         this.date = "";
@@ -61,6 +62,7 @@ function observeItems() {
         }
     
         let specs = itemNode.querySelector('.info_area .line:nth-child(1) .spec').innerText.split(', ');
+        item.area = specs[0];
         item.floor = specs[1];
         item.direction = specs[2];
     
@@ -89,7 +91,8 @@ function printSummary() {
         prev.remove();
     }
 
-    let summary = '<table id="#plugin_summary" border="1">';
+    let tsv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let summary = '<table id="#plugin_summary" border="1" style="clear:both">';
     summary += '<tr>'
             + '<td>날자</td>'
             + '<td>타입</td>'
@@ -97,10 +100,12 @@ function printSummary() {
             + '<td>월세</td>'
             + '<td>동</td>'
             + '<td>층</td>'
+            + '<td>면적</td>'
             + '<td>방향</td>'
             + '<td>설명</td>'
             + '<td>부동산</td>'
             + '</tr>';
+            
     items.forEach((item) => {
         summary += `<tr>`
                  + `<td>${item.date}</td>`
@@ -109,15 +114,50 @@ function printSummary() {
                  + `<td>${item.monthly}</td>`
                  + `<td>${item.dong}</td>`
                  + `<td>${item.floor}</td>`
+                 + `<td>${item.area}</td>`
                  + `<td>${item.direction}</td>`
                  + `<td>${item.desc}</td>`
                  + `<td>${item.realEstate}</td>`
                  + `</tr>`;
+
+        tsv += `${item.date}\t`
+            + `${item.type}\t`
+            + `${item.price}\t`
+            + `${item.monthly}\t`
+            + `${item.dong}\t`
+            + `${item.floor}\t`
+            + `${item.area}\t`
+            + `${item.direction}\t`
+            + `${item.desc}\t`
+            + `${item.realEstate}\t`
+            + `\n`;
     })
 
     summary += '</table>';
     $node.prepend(summary);    
+
+    $('#complexTitle').click(function () {
+        let filename = `${curentApt}.tsv`;
+        getCSV(filename);
+    });
+
     dirty = false;
+}
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+  
+    //const BOM = "\uFEFF";
+    //csv = BOM + csv;
+  
+    csvFile = new Blob([csv], { type: "text/tsv" });
+    downloadLink = document.createElement("a");
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
 }
 
 const disconnect = VM.observe(document.body, () => {
