@@ -35,9 +35,12 @@ let dirty = false;
 
 function observeMainTitle() {
     const $title = $('#complexTitle').innerText;
+    console.error("title:" + $title);
+    
     if ($title) {
         if (curentApt !== $title) {
             curentApt = $title;
+            console.error("curentApt:" + curentApt);
             items.clear();
         }
     }
@@ -139,7 +142,8 @@ function printSummary() {
     summary += '</table>';
     //$node.prepend(summary);    
 
-    console.error(`${curentApt}`);
+    console.error(`curentApt:${curentApt}`);
+
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
