@@ -139,7 +139,7 @@ function printSummary() {
     summary += '</table>';
     //$node.prepend(summary);    
 
-    log.error(`${curentApt}`);
+    console.error(`${curentApt}`);
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
