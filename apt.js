@@ -33,6 +33,7 @@ let curentApt = "";
 let items = new Map();
 let dirty = false;
 
+// 아파트 이름 감시
 function observeMainTitle() {
     let title = $('#complexTitle')[0].innerText;
     if (title) {
@@ -81,46 +82,15 @@ function observeItems() {
     });
 }
 
-function printSummary() {
+// tsv 파일 다운로드 만들기
+function tsvDownload() {
     const $node = $('.list_complex_info .complex_price_wrap');
     if (!$node) {
         return;
     }
 
-    let prev = $node.find("#plugin_summary");
-    if (prev) {
-        prev.remove();
-    }
-
     let tsv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
-    let summary = '<table id="#plugin_summary" border="1" style="clear:both">';
-    summary += '<tr>'
-            + '<td>날자</td>'
-            + '<td>타입</td>'
-            + '<td>가격</td>'
-            + '<td>월세</td>'
-            + '<td>동</td>'
-            + '<td>층</td>'
-            + '<td>면적</td>'
-            + '<td>방향</td>'
-            + '<td>설명</td>'
-            + '<td>부동산</td>'
-            + '</tr>';
-            
     items.forEach((item) => {
-        summary += `<tr>`
-                 + `<td>${item.date}</td>`
-                 + `<td>${item.type}</td>`
-                 + `<td>${item.price}</td>`
-                 + `<td>${item.monthly}</td>`
-                 + `<td>${item.dong}</td>`
-                 + `<td>${item.floor}</td>`
-                 + `<td>${item.area}</td>`
-                 + `<td>${item.direction}</td>`
-                 + `<td>${item.desc}</td>`
-                 + `<td>${item.realEstate}</td>`
-                 + `</tr>`;
-
         tsv += `${item.date}\t`
             + `${item.type}\t`
             + `${item.price}\t`
@@ -134,9 +104,6 @@ function printSummary() {
             + `\n`;
     })
 
-    summary += '</table>';
-    //$node.prepend(summary);    
-
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
         downloadCSV(tsv, filename);
@@ -147,11 +114,7 @@ function printSummary() {
 
 function downloadCSV(csv, filename) {
     var csvFile;
-    var downloadLink;
-  
-    //const BOM = "\uFEFF";
-    //csv = BOM + csv;
-  
+    var downloadLink;  
     csvFile = new Blob([csv], { type: "text/tsv" });
     downloadLink = document.createElement("a");
     downloadLink.download = filename;
