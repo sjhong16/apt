@@ -35,8 +35,6 @@ let dirty = false;
 
 function observeMainTitle() {
     let title = $('#complexTitle')[0].innerText;
-    console.error("title:" + title);
-    
     if (title) {
         if (curentApt !== title) {
             curentApt = title;
@@ -81,8 +79,6 @@ function observeItems() {
             dirty = true;
         }
     });
-    
-    //console.error(JSON.stringify(items.size));
 }
 
 function printSummary() {
@@ -134,7 +130,7 @@ function printSummary() {
             + `${item.area}\t`
             + `${item.direction}\t`
             + `${item.desc}\t`
-            + `${item.realEstate}\t`
+            + `${item.realEstate}`
             + `\n`;
     })
 
