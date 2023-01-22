@@ -134,11 +134,11 @@ function printSummary() {
     })
 
     summary += '</table>';
-    $node.prepend(summary);    
+    //$node.prepend(summary);    
 
     $('#complexTitle').click(function () {
         let filename = `${curentApt}.tsv`;
-        getCSV(filename);
+        downloadCSV(tsv, filename);
     });
 
     dirty = false;
