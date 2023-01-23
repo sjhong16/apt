@@ -107,16 +107,20 @@ function tsvDownload() {
     $('#complexTitle').off("click");
     $('#complexTitle').on("click", function() {
         let filename = `${curentApt}.tsv`;
-        downloadCSV(tsv, filename);
+        downloadTSV(tsv, filename);
     });
 
     dirty = false;
 }
 
-function downloadCSV(csv, filename) {
-    var csvFile;
-    var downloadLink;  
-    csvFile = new Blob([csv], { type: "text/tsv" });
+function downloadTSV(text, filename) {
+    let csvFile;
+    let downloadLink;  
+
+    const BOM = "\uFEFF";
+    text = BOM + text;
+
+    csvFile = new Blob([text], { type: "text/tsv" });
     downloadLink = document.createElement("a");
     downloadLink.download = filename;
     downloadLink.href = window.URL.createObjectURL(csvFile);
