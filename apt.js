@@ -2,7 +2,7 @@
 // @name        네이버 부동산 매물 리스트
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.1
+// @version     0.1.2
 // @author      buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
@@ -12,7 +12,7 @@
  
 class Item {
     constructor() {
-        this.aptname = "";
+        //this.aptname = "";
         this.dong = "";
         this.type = "";
         this.price = "";
@@ -59,7 +59,7 @@ function observeItems() {
         let item = new Item();
 
         // item_title (아파트명, 동)
-        item.aptname = itemNode.querySelector('.item_title .text').innerText.split(' ')[0];
+        //item.aptname = itemNode.querySelector('.item_title .text').innerText.split(' ')[0];
         item.dong = itemNode.querySelector('.item_title .text').innerText.split(' ')[1];
      
         item.type = itemNode.querySelector('.price_line .type').innerText;
@@ -100,7 +100,7 @@ function tsvDownload() {
     let tsv = "날짜\t아파트\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
         tsv += `${item.date}\t`
-            + `${item.aptname}\t`
+            //+ `${item.aptname}\t`
             + `${item.type}\t`
             + `${item.price}\t`
             + `${item.monthly}\t`
