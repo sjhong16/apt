@@ -93,6 +93,7 @@ function observeItems() {
 
 // tsv 파일 다운로드 만들기
 function tsvDownload() {
+    console.log(123); 
     const $node = $('.list_complex_info .complex_price_wrap');
     if (!$node) {
         return;
