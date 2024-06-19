@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        네이버 부동산 테이블 뷰
+// @name        네이버 부동산 매물 리스트
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
 // @version     0.1.1
