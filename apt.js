@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
 // @version     0.1
-// @author      Maru
+// @author      buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js
