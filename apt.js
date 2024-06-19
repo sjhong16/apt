@@ -79,7 +79,7 @@ function observeItems() {
         item.floor = specs[1];
         item.direction = specs[2];
     
-        item.desc = itemNode.querySelector('.info_area .line:nth-child(2) .spec').innerText;
+        //item.desc = itemNode.querySelector('.info_area .line:nth-child(2) .spec').innerText;
         item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
         item.date = itemNode.querySelector('.label_area .label .data').innerText;
     
