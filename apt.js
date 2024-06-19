@@ -12,10 +12,11 @@
  
 class Item {
     constructor() {
+        this.aptname = "";
+        this.dong = "";
         this.type = "";
         this.price = "";
         this.monthly = "";
-        this.dong = "";
         this.floor = "";
         this.direction = "";
         this.area = "";
@@ -44,6 +45,8 @@ function observeMainTitle() {
     }
 }
 
+// 
+
 // 각각의 매물을 감시한다.
 function observeItems() {
     let itemNodes = document.querySelectorAll('.item_list .item');
@@ -54,8 +57,12 @@ function observeItems() {
 
     itemNodes.forEach(itemNode => {
         let item = new Item();
-        item.type = itemNode.querySelector('.price_line .type').innerText;
+
+        // item_title (아파트명, 동)
+        item.aptname = itemNode.querySelector('.item_title .text').innerText.split(' ')[0];
         item.dong = itemNode.querySelector('.item_title .text').innerText.split(' ')[1];
+     
+        item.type = itemNode.querySelector('.price_line .type').innerText;
     
         let price = itemNode.querySelector('.price_line .price').innerText;
         let prices = price.split("/");
@@ -90,9 +97,10 @@ function tsvDownload() {
         return;
     }
 
-    let tsv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let tsv = "날짜\t아파트\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
         tsv += `${item.date}\t`
+            + `${item.aptname}\t`
             + `${item.type}\t`
             + `${item.price}\t`
             + `${item.monthly}\t`
