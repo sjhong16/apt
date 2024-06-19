@@ -36,7 +36,8 @@ let dirty = false;
 
 // 아파트 이름 감시
 function observeMainTitle() {
-    let title = $('#complexTitle')[0].innerText;
+    //let title = $('#complexTitle')[0].innerText;
+    let title = $('#complexTitle').innerText;
  console.log(title); 
     if (title) {
         if (curentApt !== title) {
