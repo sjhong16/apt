@@ -47,8 +47,7 @@ function observeMainTitle() {
 // 각각의 매물을 감시한다.
 function observeItems() {
     let itemNodes = document.querySelectorAll('.item_list .item');
-    console.log(itemNodes.length);
- 
+        console.log(itemNodes.length);
     if (!itemNodes) {
         return;
     }
