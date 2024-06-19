@@ -116,6 +116,7 @@ function tsvDownload() {
     $('#complexTitle').off("click");
     $('#complexTitle').on("click", function() {
         let filename = `${curentApt}.tsv`;
+        console.log(filename);
         downloadTSV(tsv, filename);
     });
 
