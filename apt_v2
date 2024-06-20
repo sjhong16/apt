@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        네이버 부동산 테이블 뷰
+// @name        네이버 부동산 매물 리스트
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.7
-// @author      Maru
+// @version     0.1.1
+// @author      Buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js
