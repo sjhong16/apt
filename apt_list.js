@@ -139,7 +139,7 @@ function downloadTSV(text, filename) {
     const BOM = "\uFEFF";
     text = BOM + text;
 
-    csvFile = new Blob([text], { type: "text/tsv" });
+    csvFile = new Blob([text], { type: "text/csv" });
     downloadLink = document.createElement("a");
     downloadLink.download = filename;
     downloadLink.href = window.URL.createObjectURL(csvFile);
