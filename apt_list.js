@@ -22,6 +22,7 @@ class Item {
         this.area = "";
         this.desc = "";
         this.realEstate = "";
+        this.realCount = "";
         this.date = "";
     }
 
@@ -76,6 +77,7 @@ function observeItems() {
         
             item.desc = getInnerText(itemNode, '.info_area .line:nth-child(2) .spec');
             item.realEstate = getInnerText(itemNode, '.agent_info:nth-child(2) .agent_name');
+            item.realCount = getInnerText(itemNode, '.label_area .label .count');
             item.date = getInnerText(itemNode, '.label_area .label .data');
 
             if (item.date === '') {
@@ -109,7 +111,7 @@ function tsvDownload() {
         return;
     }
 
-    let tsv = "날짜\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let tsv = "날짜\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n\t부동산수";
     items.forEach((item) => {
         tsv += `${item.date}\t`
             + `${item.type}\t`
@@ -121,6 +123,7 @@ function tsvDownload() {
             + `${item.direction}\t`
             + `${item.desc}\t`
             + `${item.realEstate}`
+            + `${item.realCount}`
             + `\n`;
     })
 
