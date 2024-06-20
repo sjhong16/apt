@@ -100,17 +100,17 @@ function getInnerText(itemNode, queryText) {
     }
 }
 
-// tsv 파일 다운로드 만들기
-function tsvDownload() {
+// csv 파일 다운로드 만들기
+function csvDownload() {
     const $node = $('.list_complex_info .complex_price_wrap');
     if (!$node) {
         console.log(`no node`);
         return;
     }
 
-    let tsv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let csv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
-        tsv += `${item.date}\t`
+        csv += `${item.date}\t`
             + `${item.type}\t`
             + `${item.price}\t`
             + `${item.monthly}\t`
@@ -125,14 +125,14 @@ function tsvDownload() {
 
     $('#complexTitle').off("click");
     $('#complexTitle').on("click", function() {
-        let filename = `${curentApt}.tsv`;
-        downloadTSV(tsv, filename);
+        let filename = `${curentApt}.csv`;
+        downloadcsv(csv, filename);
     });
 
     dirty = false;
 }
 
-function downloadTSV(text, filename) {
+function downloadcsv(text, filename) {
     let csvFile;
     let downloadLink;  
 
@@ -152,7 +152,7 @@ const disconnect = VM.observe(document.body, () => {
     observeMainTitle();
     observeItems();
     if (dirty) {
-        tsvDownload();
+        csvDownload();
     }
   });
   
