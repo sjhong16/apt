@@ -100,17 +100,17 @@ function getInnerText(itemNode, queryText) {
     }
 }
 
-// csv 파일 다운로드 만들기
-function csvDownload() {
+// tsv 파일 다운로드 만들기
+function tsvDownload() {
     const $node = $('.list_complex_info .complex_price_wrap');
     if (!$node) {
         console.log(`no node`);
         return;
     }
 
-    let csv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let tsv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
-        csv += `${item.date}\t`
+        tsv += `${item.date}\t`
             + `${item.type}\t`
             + `${item.price}\t`
             + `${item.monthly}\t`
@@ -125,24 +125,24 @@ function csvDownload() {
 
     $('#complexTitle').off("click");
     $('#complexTitle').on("click", function() {
-        let filename = `${curentApt}.csv`;
-        downloadcsv(csv, filename);
+        let filename = `${curentApt}.tsv`;
+        downloadtsv(tsv, filename);
     });
 
     dirty = false;
 }
 
-function downloadcsv(text, filename) {
-    let csvFile;
+function downloadtsv(text, filename) {
+    let tsvFile;
     let downloadLink;  
 
     const BOM = "\uFEFF";
     text = BOM + text;
 
-    csvFile = new Blob([text], { type: "text/csv" });
+    tsvFile = new Blob([text], { type: "text/tsv" });
     downloadLink = document.createElement("a");
     downloadLink.download = filename;
-    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.href = window.URL.createObjectURL(tsvFile);
     downloadLink.style.display = "none";
     document.body.appendChild(downloadLink);
     downloadLink.click();
@@ -152,7 +152,7 @@ const disconnect = VM.observe(document.body, () => {
     observeMainTitle();
     observeItems();
     if (dirty) {
-        csvDownload();
+        tsvDownload();
     }
   });
   
