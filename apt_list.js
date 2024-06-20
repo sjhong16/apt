@@ -22,7 +22,6 @@ class Item {
         this.area = "";
         this.desc = "";
         this.realEstate = "";
-        //this.realCount = "";
         this.date = "";
     }
 
@@ -58,30 +57,29 @@ function observeItems() {
     itemNodes.forEach(itemNode => {
         try {
             let item = new Item();
-            item.type = getInnerText(itemNode, '.price_line .type');
-            item.dong = getInnerText(itemNode, '.item_title .text').split(' ')[1];
+            item.type = getInnerText(itemNode, '.price_line .type'); // 타입 (매매/전세/월세)
+            item.dong = getInnerText(itemNode, '.item_title .text').split(' ')[1]; // 동 (401동)
         
-            let price = getInnerText(itemNode, '.price_line .price');
+            let price = getInnerText(itemNode, '.price_line .price'); // 가격 (8억 2,000)
             let prices = price.split("/");
             item.price = prices[0];
             if (prices.length > 1) {
-                item.monthly = prices[1];
+                item.monthly = prices[1]; // 월세 (290)
             } else {
                 item.monthly = "";
             }
         
             let specs = getInnerText(itemNode, '.info_area .line:nth-child(1) .spec').split(', ');
-            item.area = specs[0];
-            item.floor = specs[1];
-            item.direction = specs[2];
+            item.area = specs[0]; // 면적 (81A/59m²)
+            item.floor = specs[1]; // 층
+            item.direction = specs[2]; // 방향 (남향)
         
-            item.desc = getInnerText(itemNode, '.info_area .line:nth-child(2) .spec');
-            item.realEstate = getInnerText(itemNode, '.agent_info:nth-child(2) .agent_name');
-            //item.realCount = getInnerText(itemNode, '.label_area .label .count');
-            item.date = getInnerText(itemNode, '.label_area .label .data');
+            item.desc = getInnerText(itemNode, '.info_area .line:nth-child(2) .spec');  // 설명
+            item.realEstate = getInnerText(itemNode, '.agent_info:nth-child(2) .agent_name'); // 부동산명
+            item.date = getInnerText(itemNode, '.label_area .label .data'); // 날짜
 
             if (item.realEstate === '') {
-                item.realEstate = getInnerText(itemNode, '.label_area .label .count');
+                item.realEstate = getInnerText(itemNode, '.label_area .label .count'); // 부동산수
             }
 
             if (item.date === '') {
