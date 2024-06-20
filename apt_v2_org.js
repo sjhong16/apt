@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        네이버 부동산 매물 리스트 v0.1.5
+// @name        네이버 부동산 테이블 뷰
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.5
-// @author      buhong
+// @version     0.1.7
+// @author      Maru
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js
@@ -56,10 +56,10 @@ function observeItems() {
     itemNodes.forEach(itemNode => {
         try {
             let item = new Item();
-            item.type = itemNode.querySelector('.price_line .type').innerText;
-            item.dong = itemNode.querySelector('.item_title .text').innerText.split(' ')[1];
+            item.type = getInnerText(itemNode, '.price_line .type');
+            item.dong = getInnerText(itemNode, '.item_title .text').split(' ')[1];
         
-            let price = itemNode.querySelector('.price_line .price').innerText;
+            let price = getInnerText(itemNode, '.price_line .price');
             let prices = price.split("/");
             item.price = prices[0];
             if (prices.length > 1) {
@@ -68,14 +68,18 @@ function observeItems() {
                 item.monthly = "";
             }
         
-            let specs = itemNode.querySelector('.info_area .line:nth-child(1) .spec').innerText.split(', ');
+            let specs = getInnerText(itemNode, '.info_area .line:nth-child(1) .spec').split(', ');
             item.area = specs[0];
             item.floor = specs[1];
             item.direction = specs[2];
         
-            item.desc = itemNode.querySelector('.info_area .line:nth-child(2) .spec').innerText;
-            item.realEstate = itemNode.querySelector('.agent_info:nth-child(2) .agent_name').innerText;
-            item.date = itemNode.querySelector('.label_area .label .data').innerText;
+            item.desc = getInnerText(itemNode, '.info_area .line:nth-child(2) .spec');
+            item.realEstate = getInnerText(itemNode, '.agent_info:nth-child(2) .agent_name');
+            item.date = getInnerText(itemNode, '.label_area .label .data');
+
+            if (item.date === '') {
+                return;
+            }
         
             let key = item.key();
             if (!items.has(key)) {
@@ -86,6 +90,14 @@ function observeItems() {
            console.error(e);
         }
     });
+
+}
+function getInnerText(itemNode, queryText) {
+    try {
+        return itemNode.querySelector(queryText).innerText;
+    } catch (e) {
+        return "";
+    }
 }
 
 // tsv 파일 다운로드 만들기
