@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        NAVER 부동산 매물 리스트
+// @name        네이버 부동산 매물 리스트 by 부홍s
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.4
+// @version     0.5.1
 // @author      Buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
