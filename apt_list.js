@@ -122,7 +122,7 @@ function tsvDownload() {
             + `${item.area}\t`
             + `${item.direction}\t`
             + `${item.desc}\t`
-            + `${item.realEstate}`
+            + `${item.realEstate}\t`
             + `${item.realCount}`
             + `\n`;
     })
