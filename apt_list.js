@@ -2,7 +2,7 @@
 // @name        NAVER 부동산 매물 리스트
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.3
+// @version     0.1.4
 // @author      Buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
@@ -22,7 +22,7 @@ class Item {
         this.area = "";
         this.desc = "";
         this.realEstate = "";
-        this.realCount = "";
+        //this.realCount = "";
         this.date = "";
     }
 
@@ -77,8 +77,12 @@ function observeItems() {
         
             item.desc = getInnerText(itemNode, '.info_area .line:nth-child(2) .spec');
             item.realEstate = getInnerText(itemNode, '.agent_info:nth-child(2) .agent_name');
-            item.realCount = getInnerText(itemNode, '.label_area .label .count');
+            //item.realCount = getInnerText(itemNode, '.label_area .label .count');
             item.date = getInnerText(itemNode, '.label_area .label .data');
+
+            if (item.realEstate === '') {
+                item.realEstate = getInnerText(itemNode, '.label_area .label .count');
+            }
 
             if (item.date === '') {
                 return;
@@ -111,7 +115,7 @@ function tsvDownload() {
         return;
     }
 
-    let tsv = "날짜\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\t부동산수\n";
+    let tsv = "날짜\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
         tsv += `${item.date}\t`
             + `${item.type}\t`
@@ -122,8 +126,7 @@ function tsvDownload() {
             + `${item.area}\t`
             + `${item.direction}\t`
             + `${item.desc}\t`
-            + `${item.realEstate}\t`
-            + `${item.realCount}`
+            + `${item.realEstate}`
             + `\n`;
     })
 
