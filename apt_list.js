@@ -111,7 +111,7 @@ function tsvDownload() {
         return;
     }
 
-    let tsv = "날짜\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\t부동산수\n";
+    let tsv = "날짜\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
         tsv += `${item.date}\t`
             + `${item.type}\t`
