@@ -10,6 +10,7 @@
 // @require     https://cdn.jsdelivr.net/npm/@violentmonkey/dom@2
 // ==/UserScript==
  
+
 class Item {
     constructor() {
         this.type = "";
@@ -126,23 +127,23 @@ function tsvDownload() {
     $('#complexTitle').off("click");
     $('#complexTitle').on("click", function() {
         let filename = `${curentApt}.tsv`;
-        downloadtsv(tsv, filename);
+        downloadTSV(tsv, filename);
     });
 
     dirty = false;
 }
 
-function downloadtsv(text, filename) {
-    let tsvFile;
+function downloadTSV(text, filename) {
+    let csvFile;
     let downloadLink;  
 
     const BOM = "\uFEFF";
     text = BOM + text;
 
-    tsvFile = new Blob([text], { type: "text/tsv" });
+    csvFile = new Blob([text], { type: "text/tsv" });
     downloadLink = document.createElement("a");
     downloadLink.download = filename;
-    downloadLink.href = window.URL.createObjectURL(tsvFile);
+    downloadLink.href = window.URL.createObjectURL(csvFile);
     downloadLink.style.display = "none";
     document.body.appendChild(downloadLink);
     downloadLink.click();
