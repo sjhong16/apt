@@ -33,6 +33,8 @@ let curentApt = "";
 let items = new Map();
 let dirty = false;
 
+// abc
+
 // 아파트 이름 감시
 function observeMainTitle() {
     let title = $('#complexTitle')[0].innerText;
