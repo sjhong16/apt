@@ -2,7 +2,7 @@
 // @name        NAVER 부동산 매물 리스트
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.1
+// @version     0.1.2
 // @author      Buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
@@ -101,46 +101,46 @@ function getInnerText(itemNode, queryText) {
     }
 }
 
-// tsv 파일 다운로드 만들기
-function tsvDownload() {
+// csv 파일 다운로드 만들기
+function csvDownload() {
     const $node = $('.list_complex_info .complex_price_wrap');
     if (!$node) {
         console.log(`no node`);
         return;
     }
 
-    let tsv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let csv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
     items.forEach((item) => {
-        tsv += `${item.date}\t`
-            + `${item.type}\t`
-            + `${item.price}\t`
-            + `${item.monthly}\t`
-            + `${item.dong}\t`
-            + `${item.floor}\t`
-            + `${item.area}\t`
-            + `${item.direction}\t`
-            + `${item.desc}\t`
+        csv += `${item.date},`
+            + `${item.type},`
+            + `${item.price},`
+            + `${item.monthly},`
+            + `${item.dong},`
+            + `${item.floor},`
+            + `${item.area},`
+            + `${item.direction},`
+            + `${item.desc},`
             + `${item.realEstate}`
             + `\n`;
     })
 
     $('#complexTitle').off("click");
     $('#complexTitle').on("click", function() {
-        let filename = `${curentApt}.tsv`;
-        downloadTSV(tsv, filename);
+        let filename = `${curentApt}.csv`;
+        downloadcsv(csv, filename);
     });
 
     dirty = false;
 }
 
-function downloadTSV(text, filename) {
+function downloadcsv(text, filename) {
     let csvFile;
     let downloadLink;  
 
     const BOM = "\uFEFF";
     text = BOM + text;
 
-    csvFile = new Blob([text], { type: "text/tsv" });
+    csvFile = new Blob([text], { type: "text/csv" });
     downloadLink = document.createElement("a");
     downloadLink.download = filename;
     downloadLink.href = window.URL.createObjectURL(csvFile);
@@ -153,7 +153,7 @@ const disconnect = VM.observe(document.body, () => {
     observeMainTitle();
     observeItems();
     if (dirty) {
-        tsvDownload();
+        csvDownload();
     }
   });
   
