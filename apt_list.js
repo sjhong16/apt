@@ -109,7 +109,7 @@ function csvDownload() {
         return;
     }
 
-    let csv = "날자\t타입\t가격\t월세\t동\t층\t면적\t방향\t설명\t부동산\n";
+    let csv = "날짜,타입,가격,월세,동,층,면적,방향,설명,부동산\n";
     items.forEach((item) => {
         csv += `${item.date},`
             + `${item.type},`
