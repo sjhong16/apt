@@ -2,7 +2,7 @@
 // @name        네이버 부동산 매물 리스트
 // @namespace   Violentmonkey Scripts
 // @match       https://new.land.naver.com/complexes*
-// @version     0.1.6
+// @version     0.1.7
 // @author      Buhong
 // @description Please use with violentmonkey
 // @require     https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
